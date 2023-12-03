@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{{ url_for('static', filename='images/co.png')}}" type="image/x-icon" />
+        <title>Login | coca</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bulma/css/bulma.css')}}">
+        <style>
+            body{
+                
+              background-image: linear-gradient(to right bottom,#2b0a07 ,#8c241b);
+              height: 80vh;
+            
+           }
+
+           
+            
+            
+
+            footer{
+            position: fixed;
+              left: 0;
+              bottom:6%;
+              width: 100%;
+             
+              text-align: center;
+            }
+            #bar2{
+              position: fixed;
+              left: -80px;
+             bottom:-120px;
+              float: right;
+              display: block;
+              transform: scaleX(-1);
+
+              opacity: 0.5;
+              animation-duration: 1.5s;
+              animation-fill-mode: both;
+              animation-name: bary;
+              /* transform: rotate(180deg); */
+
+            }
+           #bar{
+              position: fixed;
+              right: 0;
+              bottom:0;
+              float: right;
+              display: block;
+              animation-name: barx;
+              animation-duration: 1.5s;
+              opacity: 0.5;
+              animation-fill-mode: both;
+
+            }
+            @keyframes barx{
+      
+            0% {
+               transform-origin: center center;
+               transform: rotate(-200deg);
+               opacity: 0;
+            }
+            100% {
+               transform-origin: center center;
+               transform: rotate(0);
+               opacity: 1;
+            }
+
+
+
+            }
+
+            @keyframes bary{
+      
+      0% {
+         transform-origin: center center;
+         transform: rotate(0);
+         opacity: 0;
+      }
+      100% {
+         transform-origin: center center;
+         transform: rotate(-300deg);
+         opacity: 1;
+      }
+
+
+
+      }
+
+
+            
+
+         
+    #sld{
+            animation-name: sled;
+            animation-duration: 1.5s;
+            animation-timing-function:linear;
+           
+            
+        }
+        @keyframes sled{
+        
+           10%{ margin-top: 80%;} 
+            20% {margin-top:70%; }
+            30% { margin-top:60%; }
+            40% {  margin-top: 50%;}
+            50% {margin-top:40%; }
+            60% {margin-top:30%; }
+            70% {  margin-top: 20%; }
+            80% {  margin-top:10%; }
+            90% {margin-top: 1%; }
+            100% {margin-top: auto; }
+  
+
+
+}
+
+@media only screen and (max-width: 600px) {
+                #bar  {
+                width: 0%;
+                height: 0%;
+                }
+                #bar2{
+                    left: -100px;
+             bottom:-140px;
+                }
+}
+
+        </style>
+    
+    </head>
+    <body >
+        <section class="section" id="sld">
+    <div class="container">
+        <div class="container" >
+            <br>
+       
+     
+
+                <h1 class="has-text-centered is-size-3 has-text-weight-bold has-text-white mt-6">Welcome |<label class=" has-text-centered is-size-3 has-text-weight-light " style="color: #ff5e28;"> Login</label></h1>
+                <br>
+         <br>
+           <br>
+            <div class="columns is-centered is ">
+                
+                <!-- <div class="column is-4">
+                    <img src="{{ url_for('static', filename='images/logan.gif')}}" alt="Image not found">
+             
+                </div> -->
+                <div id='s' class="column  is-4 ">
+                    <br><br> 
+                    <div class="columns  is-flex is-flex-direction-column is-responsive ">
+                        <form action="/" method="POST">
+                                <div class="column  ">
+                                    
+                                    <input name="name" id='name' class="input has-text-danger  is-rounded" type="text" placeholder="Username">
+                                </div>
+                                <div class="column">
+                
+                                    <input name="password" class="input has-text-danger is-rounded" type="password" placeholder="Password">
+                                    <a href="" class="is-size-7 px-3 has-text-danger ">{{error}} </a>
+                                </div>
+                                <div class="column">
+                                    <button id="ani" class="button is-success is-fullwidth  is-rounded " style="background-color: rgb(227, 34, 34);" type="submit">Login</button>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="is-size-7" style="color: #ffffff;"> Forget Password | <a href="index.html" class=" has-text-weight-normal"   style="color: #ff5e28;">Click here</a>
+                                    </p>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+
+
+
+        <br><br>
+
+   
+ 
+   
+            
+            
+       
+     
+    </div>
+  
+          
+          
+</section>
+<img src="{{ url_for('static', filename='images/newco.png')}}" id="bar" width="300" height="400">
+<img src="{{ url_for('static', filename='images/newco.png')}}" id="bar2" width="300" height="400">
+<footer>
+    <h1 class="has-text-centered is-size-7  has-text-gray-light">Copyright 2023/2015 | Powered by <a href="onyxtech.epizy.com" class="has-text-centered is-size-7 " style="color: #c3073f;">Onyx Technology</a> </h1>
+<footer> 
+    </body>
+
+</html>

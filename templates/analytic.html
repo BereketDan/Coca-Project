@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <title>FamCare - Managmnet</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/co.png')}}" type="image/x-icon" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='bulma/css/bulma.css')}}">
+         
+       
+          <style>
+
+
+           footer {
+              padding-bottom: 2%;
+              left: 0;
+              width: 100%;
+     
+              text-align:center;
+           }
+    #ov{
+      background-image: linear-gradient(to right bottom, #2b0a07, #8c241b);
+   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+      /* background-image: url('static/images/had.png');
+      background-repeat: no-repeat;
+      background-size: cover; */
+      border-radius: 10px;
+      font-family: 'Karla', sans-serif;
+    }
+    #pxx{
+        width: 27vw;
+      }
+
+    #rd{
+      border-radius: 40px;
+      animation-name: rdx;
+      animation-duration: 2s;
+    }
+    .sub{
+      font-size: 0.8rem;
+      color: rgb(255, 255, 255);
+      padding:5%;
+    }
+    #rem{
+      text-decoration: none;
+      color: #ffffff;
+      background-color: transparent;
+    }
+    .response-idown{padding-top: 5.5vh;}
+    .response-top{padding-top: 5.5vh;}
+    .response{padding-top: 12vh;}
+    @keyframes rdx{
+      
+      0% { opacity: 0;}
+      100% { opacity: 1;}
+
+    }
+
+     
+      @media only screen and (max-device-width : 640px) {
+        #pxx{
+                width: 85vw;
+              }
+        .sub{padding: 5%;}
+        #ov{ border-radius: 25px;}  
+
+            .response{ width: 0%;
+                height: 0%;
+                padding: 0;
+                margin: 0;
+                
+
+               }
+
+            .response-idown{
+                width: 0%;
+                height: 0%;
+                padding: 0;
+                margin: 0;
+                }
+                .response-top{
+                   width: 0%;
+                height: 0%;
+                padding: 2vh;
+                margin: 0;}
+                footer { padding-bottom: 8%;}
+}
+        </style>
+    
+  </head>
+  <body>
+
+
+
+<!-- #################################### Javscript ############################################## -->
+
+
+
+
+    <script>
+      function alt() {
+        alert("sucessfully added ");
+      }
+      function sav(){
+        alert("sucessfully saved ");
+      }
+      
+            document.addEventListener('DOMContentLoaded', () => {
+
+// Get all "navbar-burger" elements
+const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+// Add a click event on each of them
+$navbarBurgers.forEach( el => {
+  el.addEventListener('click', () => {
+
+    // Get the target from the "data-target" attribute
+    const target = el.dataset.target;
+    const $target = document.getElementById(target);
+
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    el.classList.toggle('is-active');
+    $target.classList.toggle('is-active');
+
+  });
+});
+
+});
+
+$(document).ready(function() {
+
+// Check for click events on the navbar burger icon
+$(".navbar-burger").click(function() {
+
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+
+});
+});
+      
+      </script>
+
+
+
+
+
+<!-- #################################### Navbar ############################################## -->
+  
+
+
+
+
+
+
+
+
+<nav class="navbar p-0 box is-rounded" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand px-4">
+          <a class="navbar-item" href="">
+            <p class="subtitle is-danger has-text-danger">
+              <span class="icon-text ">
+                <span class="icon ">
+                  <i class="fas fa-home"> <img src="{{ url_for('static', filename='images/cop.png')}}" alt="Image not found"></i>
+                </span>
+                <span class="ml-4 has-text-weight-normal"  style="color:#ed0033 ;">Coca Admin</span>
+              </span>
+            </p>
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu is-responsive is-centered">
+          <div class="navbar-start">
+        
+          </div>
+      
+          <div class="navbar-end  mr-5">
+            <a href="{{ url_for('index')}}" class="navbar-item " >
+              
+             
+              መቀበያ &#12826
+              
+            </a>
+            <a  href="{{ url_for('analytic')}}" class="navbar-item" style="color:#e01212;">
+              ባዶ ገቢ
+            </a>
+            
+            <a href="{{ url_for('reserved')}}" class="navbar-item " >
+              
+             
+              ወጪ
+              
+            </a>
+            
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a  href="{{ url_for('version')}}"class="navbar-item">
+                  Version
+                </a>
+                <a href="{{ url_for('manual')}}" class="navbar-item">
+                  Manual
+                </a>
+                <a href="{{ url_for('costpage')}}" class="navbar-item">
+                  Cost
+                </a>
+                <a href="{{ url_for('sumpage')}}" class="navbar-item">
+                  summary 
+                </a>
+                <hr class="navbar-divider">
+                <a href="{{ url_for('about')}}" class="navbar-item">
+                  Setting
+                </a>
+              </div>
+            </div>
+            <div class="navbar-item">
+              <div class="buttons">
+                <a href="{{ url_for('login')}}" class="button is-info is-small is-rounded " style="background-color:#e02a1a ;">
+                  Log out
+                </a>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+
+
+
+
+
+
+
+<!--  ########################### below navbar(columns container) ########################## -->
+    
+
+
+
+
+
+
+<!-- ########## MainContanier ########### -->
+
+<section class="section" id="rd" >
+<div id="ov" class="columns box is-centered  " >
+                
+            
+  <div class="column  is-4 px-6">
+    <div class="response-top" ></div>
+      <p class="title has-text-centered has-text-white py-1"  > ባዶ  <strong style="color: #df3424;" class="has-text-weight-bold"> ገቢ</strong> </p>
+      <img src="{{ url_for('static', filename='images/fant.png')}}"  alt="Image not found">
+      <div class="response-idown"></div>
+      
+
+  </div> 
+
+  <div id="pxx" class="column  is-4 ">
+    
+    <form action="/analytic" method="POST">
+      <div class="response"></div>
+      
+      <div id="res" class="column">
+        <div class="select  is-rounded is-fullwidth"  >
+              <select name="type_bot"  style="color: #82170d;">
+                    <option>Coca</option>
+                    <option>Ambo</option>
+                    <option>Novia</option>
+                    <option>Pet</option>
+                    <option>Ambo_Flavor</option>
+                    <option>Ambo_Origin</option>
+                    <option>P_Energy</option>
+             
+              </select>
+        </div>
+        
+        <!-- <input class="input  is-small is-info " type="text" placeholder="Gender"> -->
+  
+  </div>
+   
+  <div class="column ">
+    <div class="select  is-rounded is-fullwidth">
+          <select name="type_box"  style="color: #82170d;">
+                <option>Case</option>
+                <option>Pack</option>
+                <option>other</option>
+          </select>
+    </div>
+    
+    <!-- <input class="input  is-small is-info " type="text" placeholder="Gender"> -->
+  
+  </div>
+   
+
+ 
+
+
+    
+    
+      <div class="column  ">
+          
+          <input name="remain_bot" id='name' class="input  is-rounded" type="text" placeholder="Remain Bottle" style="color: #82170d;">
+      </div>
+      <span class="sub">{{warn}}</span>
+      
+    
+      <div class="columns px-3">
+        
+          <div class="column">
+            <button  class="button is-fullwidth is-rounded  is-outlined" style="background-color: transparent; color: #ffffff;"  type="submit">
+              <a id="rem" href="{{ url_for('about')}}" >
+                Remain
+              </a>
+            </button>
+          </div>
+          
+
+          <div class="column">
+            <button id="ani" class="button is-fullwidth is-rounded  is-outlined" style="background-color: transparent; color: #ffffff;" type="submit">Add</button>
+          </div>
+    </div>
+ 
+    </form> 
+
+<!-- 
+      <div class="columns px-3">
+          <div class="column ">
+                <input name="remain_birr" id='name' class="input  is-rounded" type="text" placeholder="Remain Birr" style="color: #82170d;">
+          </div>
+          <div class="column is-half">
+                <button id="ani" class="button is-fullwidth is-rounded  is-outlined" style="background-color: transparent; color: #ffffff;" type="submit">Add</button>
+          </div>
+      </div> -->
+    
+      
+    <form action="/home" method="POST">
+
+        <div class="column">
+            <button id="ani" class="button is-success is-fullwidth is-rounded" style="background-color:#e02a1a;" type="submit">Register</button>
+        </div>
+
+    </form>
+
+ 
+  </div>
+ 
+
+</div>
+
+</section>
+<!-- #################################### MainContainer ########################################### -->
+
+
+
+
+<footer class=" is-size-7  mr-5 has-text-gray-light">Copyright 2023/2015 | Powered by <a href="onyxtech.epizy.com" class="has-text-centered is-size-7  has-text-danger">Onyx Technology</a> </h1>
+           
+
+
+
+</body>
+</html>

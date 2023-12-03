@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <title>Coca - Managmnet</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/co.png')}}" type="image/x-icon" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='bulma/css/bulma.css')}}">
+
+  <style>
+    footer {
+      padding-bottom: 2%;
+      left: 0;
+   
+      width: 100%;
+
+      text-align: center;
+    }
+
+    #rd {
+      border-radius: 40px;
+      animation-name: rdx;
+      animation-duration: 2s;
+    }
+
+    #ov {
+      background-image: linear-gradient(to right bottom, #2b0a07, #8c241b);
+      border-radius: 10px;
+    }
+
+    #pxx {
+      width: 26vw;
+    }
+    .sub{
+      font-size: 1rem;
+      color: wheat;
+      padding-left: 5%;
+    }
+    .table{
+        align-items: center;
+        text-align: center;
+        
+      }
+      th{
+
+        align-items: center;
+        text-align: center;
+
+      }
+     
+    .response-idown{padding-top: 7vh;}
+    .response-top { padding-top: 7vh; }
+    .response { padding-top: 13vh; }
+
+    @keyframes rdx {
+
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+
+
+
+    }
+
+    @media only screen and (max-width: 500px) {
+      footer {
+        padding-bottom: 8%;
+      }
+
+      .response {
+        width: 0%;
+                height: 0%;
+                padding: 0;
+                margin: 0;
+      }
+
+      #pxx {
+        width: 85vw;
+      }
+      
+
+      #ov {
+
+        border-radius: 25px;
+      } 
+
+      .response-idown{
+                width: 0%;
+                height: 0%;
+                padding: 0;
+                margin: 0;
+                }
+
+
+      .response-top {
+        width: 0%;
+        height: 0%;
+        padding: 2vh;
+        margin: 0;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+
+  <!-- #################################### Javscript ############################################## -->
+
+
+
+
+  <script>
+    function alt() {
+      alert("sucessfully added ");
+    }
+    function sav() {
+      alert("sucessfully saved ");
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Get all "navbar-burger" elements
+      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      // Add a click event on each of them
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+
+        });
+      });
+
+    });
+
+    $(document).ready(function () {
+
+      // Check for click events on the navbar burger icon
+      $(".navbar-burger").click(function () {
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+
+      });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+  </script>
+
+
+
+
+
+  <!-- #################################### Navbar ############################################## -->
+
+
+
+
+
+
+
+
+
+  <nav class="navbar p-0 box is-rounded" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand px-4">
+      <a class="navbar-item" href="">
+        <p class="subtitle is-danger has-text-danger">
+          <span class="icon-text ">
+            <span class="icon ">
+              <i class="fas fa-home"> <img src="{{ url_for('static', filename='images/cop.png')}}"
+                  alt="Image not found"></i>
+            </span>
+            <span class="ml-4 has-text-weight-normal" style="color:#ed0033 ;">Coca Admin</span>
+          </span>
+        </p>
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu is-responsive is-centered">
+      <div class="navbar-start">
+
+      </div>
+
+      <div class="navbar-end  mr-5">
+        <a href="{{ url_for('index')}}" class="navbar-item " >
+
+
+          መቀበያ
+
+        </a>
+        <a href="{{ url_for('analytic')}}" class="navbar-item">
+          ባዶ ገቢ
+        </a>
+        <a href="{{ url_for('reserved')}}" class="navbar-item ">
+
+
+          ወጪ
+
+        </a>
+        
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" style="color:#e01212;">
+            More
+          </a>
+
+          <div class="navbar-dropdown">
+            <a href="{{ url_for('version')}}" class="navbar-item">
+              Version
+            </a>
+            <a href="{{ url_for('manual')}}" class="navbar-item">
+              Manual
+            </a>
+            <a href="{{ url_for('costpage')}}" class="navbar-item">
+              Cost
+            </a>
+            <a href="{{ url_for('sumpage')}}" class="navbar-item" >
+              summary
+            </a>
+            <hr class="navbar-divider">
+            <a href="{{ url_for('setting')}}" class="navbar-item" style="color:#e01212;">
+              Setting
+            </a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a href="{{ url_for('login')}}" class="button is-info is-small is-rounded "
+              style="background-color:#e02a1a ;">
+              Log out | {{user_namex}}
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+
+  <!--  ########################### below navbar(columns container) ########################## -->
+
+
+
+
+
+
+
+  <!-- ########## MainContanier ########### -->
+
+  <section class="section is-centered" id="rd">
+
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+            
+            <li><a href="#">home </a></li>
+            <li class="is-active"><a href="#" aria-current="page">Configuration</a></li>
+            </ul>
+        </nav>
+      
+        <script>
+              
+            document.addEventListener('DOMContentLoaded', () => {
+              // Functions to open and close a modal
+              function openModal($el) {
+                $el.classList.add('is-active');
+              }
+            
+              function closeModal($el) {
+                $el.classList.remove('is-active');
+              }
+            
+              function closeAllModals() {
+                (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+                  closeModal($modal);
+                });
+              }
+            
+              // Add a click event on buttons to open a specific modal
+              (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+                const modal = $trigger.dataset.target;
+                const $target = document.getElementById(modal);
+            
+                $trigger.addEventListener('click', () => {
+                  openModal($target);
+                });
+              });
+            
+              // Add a click event on various child elements to close the parent modal
+              (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+                const $target = $close.closest('.modal');
+            
+                $close.addEventListener('click', () => {
+                  closeModal($target);
+                });
+              });
+            
+              // Add a keyboard event to close all modals
+              document.addEventListener('keydown', (event) => {
+                const e = event || window.event;
+            
+                if (e.keyCode === 27) { // Escape key
+                  closeAllModals();
+                }
+              });
+            });</script>
+
+
+
+        <div id="modal-js-example" class="modal">
+            <div class="modal-background"></div>
+          
+            <div class="modal-content">
+              <div class="box ">
+                <br><br>
+               <center><h2 class="subtitle ">Current <span  style="color:#737373 ;">Information</span> </h2>
+                <br>  </center> 
+
+
+                
+                <div  class="is-responsive" style="height: 70vh; overflow: auto;">
+
+                    <table class="table" style="width: 100%;" style="text-align: center;">
+                      <thead class="has-text-white is-rounded " >
+                        <tr  class="has-text-centered " >
+                         
+                          <th></th>
+                          <th><abbr  class="has-text-dark  " title="Drawn"></abbr></th>
+                          <th><abbr  class="has-text-dark " title="Drawn"></abbr></th>
+                        
+              
+                        </tr>
+                      </thead>
+              
+                      <tbody class="tb" >
+                        {% for datx in dat %}
+                        <tr >
+                         
+                          <td class=" ">{{datx[0]}} </td>
+                          <td class="">{{datx[1]}} Birr</td>
+                 
+                          <td ><a href="/Itemdel/{{datx[0]}}" id="paid-btn" class="button is-danger ">Remove</a> </td>
+                       
+                         
+                    
+                        </tr>
+                        {% endfor %}
+                         
+                
+                      </tbody>
+                    </table>
+              
+              
+                </div>
+                <br><br>
+                <!-- Your content -->
+              </div>
+            </div>
+          
+            <button class="modal-close is-large" aria-label="close"></button>
+          </div>
+
+
+
+
+        <div class="columns has-text-centered  ">
+        
+            <div class="column is-centered ">
+                <br>
+                <h2 class="subtitle ">Item <span  style="color:#737373 ;">Improvement</span> </h2>
+                <br>     
+
+
+                <center>
+                <div class="column is-two-thirds">
+                
+                    <form action="/item_conf" method="POST">
+
+                        <div class="column "><input name="item_name" class="input is-rounded" type="text" placeholder="Item Name [Example coca]"></div>
+                        
+                        <div class="column"><input name="item_price" class="input is-rounded" type="text" placeholder="Item Price [Birr]"></div>
+
+                        <div class="column"><button class='button  is-fullwidth is-rounded is-hoverable' type="submit" >Add</button></div>
+
+                    </form>
+
+                    <div class="column"><button data-target="modal-js-example"  class='button  is-fullwidth is-rounded js-modal-trigger' style="background-color: #e01212;color: white;">Display</button></div>
+            
+
+                </div>
+                </center>
+
+                <br>
+
+            </div>
+
+
+
+
+
+
+
+
+
+        <div class="column ">
+            <br>
+            <h2 class="subtitle">User <span  style="color:#747474  ;"> Authentication</span></h2>
+           
+            <br>
+
+
+            <center>
+            <div class="column is-two-thirds">
+
+
+                <form action="/auth_app" method="POST">
+                <div class="columns ">
+                    <div class="column ">
+                        <div class="select  is-rounded  ">
+                            <select name="type_user">
+                                <option>Admin </option>
+                                <option>Casher</option>
+                                <option>Store_keeper</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="column  ">
+                        <input name="new_user" class="input is-rounded " type="text" placeholder="New Username">
+                    </div>
+                    
+                </div>
+                
+                <div class="column"><input name="new_pass" class="input is-rounded" type="text" placeholder="New Password"></div>
+
+                <div class="column"><button class='button  is-fullwidth is-rounded is-hoverable' type="submit">Save</button></div>
+
+                <div class="column"><button data-target="modal-js-example"  class='button  is-fullwidth is-rounded js-modal-trigger' style="background-color: #e01212;color: white;">Auth Users</button></div>
+                </form>
+                
+
+            </div>
+            </center>
+          
+              
+            
+        </div>
+
+    </div>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </section>
+
+  <!-- #################################### MainContainer ########################################### -->
+
+  <h1> {{olad}}</h1>
+  
+  <footer class=" is-size-7  mr-5 has-text-gray-light">Copyright 2023/2015 | Powered by <a href="onyxtech.epizy.com"
+      class="has-text-centered is-size-7  has-text-danger">Onyx Technology</a> </h1>
+  </footer>
+
+
+
+
+</body>
+
+</html>

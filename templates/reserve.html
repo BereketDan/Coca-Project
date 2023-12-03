@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FamCare | Reserve</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bulma/css/bulma.css')}}">
+    
+        <style>
+          footer {
+              position: fixed;
+              left: 0;
+              bottom:6%;
+              width: 100%;
+     
+              text-align: center;
+    }
+</style>
+        </style>
+    </head>
+    <body>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+
+// Get all "navbar-burger" elements
+const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+// Add a click event on each of them
+$navbarBurgers.forEach( el => {
+  el.addEventListener('click', () => {
+
+    // Get the target from the "data-target" attribute
+    const target = el.dataset.target;
+    const $target = document.getElementById(target);
+
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    el.classList.toggle('is-active');
+    $target.classList.toggle('is-active');
+
+  });
+});
+
+});
+
+$(document).ready(function() {
+
+// Check for click events on the navbar burger icon
+$(".navbar-burger").click(function() {
+
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+
+});
+});
+        </script>
+
+<nav class="navbar p-0 box" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand px-4">
+    <a class="navbar-item" href="">
+      <p class="subtitle is-info has-text-info">
+        <span class="icon-text ">
+          <span class="icon ">
+            <i class="fas fa-home"> <img src="{{ url_for('static', filename='images/logx1.png')}}" alt="Image not found"></i>
+          </span>
+          <span class="ml-4">FamCare Clinic</span>
+        </span>
+      </p>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+  
+    </div>
+
+    <div class="navbar-end mr-5">
+      <a href="{{ url_for('index')}}" class="navbar-item">
+        Dashboard
+      </a>
+
+      <a  href="{{ url_for('analytic')}}"  class="navbar-item">
+        Analytics
+      </a>
+      <a href="{{ url_for('reserved')}}" class="navbar-item " style="color:#008ddf;">
+                 
+        Reserve
+        
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More
+        </a>
+
+        <div class="navbar-dropdown">
+          <a  href="{{ url_for('version')}}"class="navbar-item">
+            Version
+          </a>
+          <a href="{{ url_for('manual')}}" class="navbar-item">
+            Manual
+          </a>
+          <a href="{{ url_for('costpage')}}" class="navbar-item">
+            Cost
+          </a>
+          <a href="{{ url_for('sumpage')}}" class="navbar-item">
+            summary 
+          </a>
+          <hr class="navbar-divider">
+          <a href="{{ url_for('about')}}" class="navbar-item">
+            About us
+          </a>
+        </div>
+      </div>
+      <div class="navbar-item">
+        <div class="buttons">
+          <a href="{{ url_for('login')}}" class="button is-info is-small ">
+            Log out
+          </a>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+    <br>
+    <div class="section ">
+    <div class="container ">
+       
+   
+        <div class="columns is-centered ">
+
+            <div style="height: 66vh; overflow: auto">
+
+                <table class="table is-size-6  ">
+                  <thead class="has-text-info ">
+                    <tr  class=" ">
+                      <th><abbr class="has-text-info px-2" title="Drawn">User Id</abbr></th>
+                      <th><abbr  class="has-text-info px-3 " title="Position">Username</abbr></th>
+                      <th><abbr  class="has-text-info px-3" title="Drawn">Phone</abbr></th>
+                      <th><abbr  class="has-text-info px-5" title="Drawn">Action</abbr></th>
+                     
+          
+                    </tr>
+                  </thead>
+          
+                  <tbody>
+                    <tr>
+                      {% for resx in res %}
+                      <th class="px-4">{{resx[0]}}</th>
+                      <td class="px-3">{{resx[2]}}</td>
+                      <td class="px-3">{{resx[1]}}</td>
+                      
+                      <td class="px-5" ><a href="{{ url_for('delx', id=resx[0])}}" class="button is-info is-small is-outlined " type="submit">Remove</button></td>
+                      
+                    </tr>
+                    <tr>
+                      {% endfor %}
+            
+                  </tbody>
+                </table>
+          
+          
+            </div>
+
+
+        </div>
+    </div>
+   </div> 
+
+       
+        
+
+   
+ 
+
+            <footer class="has-text-centered is-size-7  has-text-gray-light">Copyright 2023/2015 FamCare Clinic | powered by <a href="onyxtech.epizy.com" class="has-text-centered is-size-7  has-text-info">Onyx Technology</a> </h1>
+           
+                  
+       
+     
+    </div>
+                
+    </body>
+
+</html>
