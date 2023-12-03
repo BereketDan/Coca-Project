@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = no">
-  <title>FamCare - Managmnet</title>
-  <link rel="icon" href="{{ url_for('static', filename='images/co.png')}}" type="image/x-icon" />
+  <title>Coca - Managmnet</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/coop.png')}}" type="image/x-icon" />
   <link rel="stylesheet" href="{{ url_for('static', filename='bulma/css/bulma.css')}}">
 
 
@@ -178,10 +178,10 @@
         <p class="subtitle is-danger has-text-danger">
           <span class="icon-text ">
             <span class="icon ">
-              <i class="fas fa-home"> <img src="{{ url_for('static', filename='images/cop.png')}}"
+              <i class="fas fa-home"> <img src="{{ url_for('static', filename='images/coop.png')}}"
                   alt="Image not found"></i>
             </span>
-            <span class="ml-4 has-text-weight-normal" style="color:#ed0033 ;">Coca Admin</span>
+            <span class="ml-4 has-text-weight-normal" style="color:#ed0033 ;">Dashboard</span>
           </span>
         </p>
       </a>
@@ -198,53 +198,48 @@
 
       </div>
 
-      <div class="navbar-end  mr-5">
-        <a href="{{ url_for('index')}}" class="navbar-item ">
+      <div class="navbar-end  mr-5" style="font-size:0.95rem;">
 
-
-          መቀበያ
-
-        </a>
-        <a href="{{ url_for('analytic')}}" class="navbar-item" style="color:#e01212;">
-          ባዶ ገቢ
+        <a href="{{ url_for('index')}}" class="navbar-item " >
+             Sale
         </a>
 
-        <a href="{{ url_for('reserved')}}" class="navbar-item ">
 
-
-          ወጪ
-
+        <a href="{{ url_for('analytic')}}" class="navbar-item">
+          Unsold
         </a>
 
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
-          </a>
 
-          <div class="navbar-dropdown">
-            <a href="{{ url_for('version')}}" class="navbar-item">
-              Version
-            </a>
-            <a href="{{ url_for('manual')}}" class="navbar-item">
-              Manual
-            </a>
-            <a href="{{ url_for('costpage')}}" class="navbar-item">
-              Cost
-            </a>
-            <a href="{{ url_for('sumpage')}}" class="navbar-item">
-              summary
-            </a>
-            <hr class="navbar-divider">
-            <a href="{{ url_for('about')}}" class="navbar-item">
-              Setting
-            </a>
-          </div>
-        </div>
+        <a href="{{ url_for('about')}}" class="navbar-item "  style="color:#e01212;">
+          Credit
+        </a>
+
+
+        <a href="{{ url_for('manual')}}" class="navbar-item ">
+          Cost
+        </a>
+
+
+        <a href="{{ url_for('Store')}}" class="navbar-item ">
+          Store
+        </a>
+
+
+        <a href="" class="navbar-item ">
+           Analytics
+        </a>
+
+
+        <a href="{{ url_for('setting')}}" class="navbar-item ">
+          Customization
+        </a>
+         
+      
         <div class="navbar-item">
           <div class="buttons">
             <a href="{{ url_for('login')}}" class="button is-info is-small is-rounded "
               style="background-color:#e02a1a ;">
-              Log out
+              Log out  
             </a>
 
           </div>
@@ -276,17 +271,17 @@
     <div class="columns is-centered  ">
 
         <div class="column ">
-          <input name="username" id='name' class="input " type="text" placeholder="Username"
+          <input name="username" id='name' class="input is-rounded" type="text" placeholder="Username"
             style="color: #82170d;">
         </div>
 
         <div class="column ">
-          <input name="remain_birr" id='name' class="input " type="text" placeholder="Remain Birr"
+          <input name="remain_birr" id='name' class="input is-rounded" type="text" placeholder="Remain Birr"
             style="color: #82170d;">
         </div>
 
         <div class="column ">
-          <button id="ani" class="button is-fullwidth "
+          <button id="ani" class="button is-fullwidth is-rounded "
             style="background-color: #e02a1a; color: #ffffff;" type="submit">Add</button>
         </div>
     
@@ -298,7 +293,7 @@
 
     <div  class="is-responsive" style="height: 70vh; overflow: auto;">
 
-      <table class="table  " style="width: 90vw;">
+      <table class="table  is-rounded" style="width: 95vw;">
         <thead class="has-text-white is-rounded">
           <tr  class=" has-background-dark  is-rounded">
             <th><abbr class="has-text-white " title="Drawn">Username</abbr></th>
@@ -336,10 +331,10 @@
 
 
 
-  <footer class=" is-size-7  mr-5 has-text-gray-light">Copyright 2023/2015 | Powered by <a href="onyxtech.epizy.com"
-      class="has-text-centered is-size-7  has-text-danger">Onyx Technology</a> </h1>
-
-
+  <footer class=" is-size-7  mr-5 has-text-gray-light">
+    © {{cdate}}/{{cdate-8}} | Powered by <a href="http://onyxtech.epizy.com"
+      class="has-text-centered is-size-7  has-text-danger"><strong>Onyx Technology</strong></a> </h1>
+  </footer>
 
 
 </body>

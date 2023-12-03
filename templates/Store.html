@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-  <title>Coca - Managmnet</title>
+  <title>Coca - Managmnet </title>
   <link rel="icon" href="{{ url_for('static', filename='images/coop.png')}}" type="image/x-icon" />
   <link rel="stylesheet" href="{{ url_for('static', filename='bulma/css/bulma.css')}}">
 
@@ -191,7 +191,7 @@
 
 
 
-  <nav class="navbar p-0 box " role="navigation" aria-label="main navigation">
+  <nav class="navbar p-0 box is-rounded" role="navigation" aria-label="main navigation">
     <div class="navbar-brand px-4">
       <a class="navbar-item" href="">
         <p class="subtitle is-danger has-text-danger">
@@ -239,7 +239,7 @@
         </a>
 
 
-        <a href="{{ url_for('Store')}}" class="navbar-item ">
+        <a href="{{ url_for('Store')}}" class="navbar-item " style="color:#e01212;">
           Store
         </a>
 
@@ -249,7 +249,7 @@
         </a>
 
 
-        <a href="{{ url_for('setting')}}" class="navbar-item " style="color:#e01212;">
+        <a href="{{ url_for('setting')}}" class="navbar-item ">
           Customization
         </a>
          
@@ -258,7 +258,7 @@
           <div class="buttons">
             <a href="{{ url_for('login')}}" class="button is-info is-small is-rounded "
               style="background-color:#e02a1a ;">
-              Log out  
+              Log out 
             </a>
 
           </div>
@@ -291,7 +291,7 @@
             <ul>
             
             <li><a href="#">home </a></li>
-            <li class="is-active"><a href="#" aria-current="page">Configuration</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Store</a></li>
             </ul>
         </nav>
       
@@ -448,7 +448,6 @@
                   <th></th>
                   <th><abbr  class="has-text-dark  " title="Drawn"></abbr></th>
                   <th><abbr  class="has-text-dark " title="Drawn"></abbr></th>
-                  <th><abbr  class="has-text-dark " title="Drawn"></abbr></th>
                 
       
                 </tr>
@@ -459,10 +458,9 @@
                 <tr >
                  
                   <td class=" ">{{authx[0]}} </td>
-                  <td class="">{{authx[1]}}  </td>
-                  <td class="">{{authx[2]}}  </td>
+                  <td class="">{{authx[1]}} </td>
          
-                  <td ><a href="/Userdel/{{authx[1]}}" id="paid-btn" class="button is-danger ">Remove</a> </td>
+                  <td ><a href="/Userdel/{{authx[0]}}" id="paid-btn" class="button is-danger ">Remove</a> </td>
                
                  
             
@@ -590,26 +588,34 @@
         <div class="columns has-text-centered  ">
         
             <div class="column is-centered ">
-                <br>
-                <h2 class="subtitle ">Item <span  style="color:#737373 ;">Improvement</span> </h2>
+              <br> <br> <br> <br>
+                <h2 class="subtitle ">TopUp  <span  style="color:#737373 ;">Item</span> </h2>
                 <br>     
 
 
                 <center>
                 <div class="column is-two-thirds">
                 
-                    <form action="/item_conf" method="POST">
+                    <form action="/StockAdd" method="POST">
 
-                        <div class="column "><input name="item_name" class="input is-rounded" type="text" placeholder="Item Name [Example coca]"></div>
-                        
-                        <div class="column"><input name="item_price" class="input is-rounded" type="text" placeholder="Item Price [Birr]"></div>
+                        <div class="column ">
+                            <div class="select  is-rounded is-fullwidth  ">
+                                <select name="type_item">
+                                    {% for Icx in Ic %}
+                                    <option>{{Icx[0]}} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
 
-                        <div class="column"><button class='button  is-fullwidth is-rounded is-hoverable' type="submit" >Add</button></div>
+
+                        <div class="column"><input name="item_Amount" class="input is-rounded" type="text" placeholder="Amount"></div>
+
+                        <div class="column"><button class='button  is-fullwidth is-rounded 'style="background-color: #e01212;color: white;" type="submit" >Add</button></div>
 
                     </form>
 
-                    <div class="column"><button data-target="modal-js-example"  class='button  is-fullwidth is-rounded js-modal-trigger' style="background-color: #e01212;color: white;">Display</button></div>
-            
+                    
 
                 </div>
                 </center>
@@ -626,47 +632,23 @@
 
 
 
-        <div class="column ">
+        <div class="column box is-rounded  ">
             <br>
-            <h2 class="subtitle">User <span  style="color:#747474  ;"> Authentication</span></h2>
+            <h2 class="subtitle">Current  <span  style="color:#747474  ;"> Item</span></h2>
            
             <br>
 
-
-            <center>
-            <div class="column is-two-thirds">
-
-
-                <form action="/auth_app" method="POST">
-                <div class="columns ">
-                    <div class="column ">
-                        <div class="select  is-rounded  ">
-                            <select name="type_user">
-                                <option>Admin </option>
-                                <option>Casher</option>
-                                <option>Store_keeper</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="column  ">
-                        <input name="new_user" class="input is-rounded " type="text" placeholder="New Username">
-                    </div>
-                    
-                </div>
-                
-                <div class="column"><input name="new_pass" class="input is-rounded" type="text" placeholder="New Password"></div>
-
-                <div class="column"><button class='button  is-fullwidth is-rounded is-hoverable' type="submit">Save</button></div>
-
-                </form>
-
-                <div class="column"><button data-target="modal-js"  class='button  is-fullwidth is-rounded js-modal' style="background-color: #e01212;color: white;">Auth Users</button></div>
-               
-                
-
+            {% for x, y in res.items() %}
+          
+            <div class="columns is-two-thirds">
+              <div class="column is-rounded " style="background-color: #e01212;color: white;">{{x}} </div>
+              <div class="column  is-three-fifths">  {{y}}</div>
+   
+           
             </div>
-            </center>
+            
+            {% endfor %}
+          
           
               
             

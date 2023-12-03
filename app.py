@@ -17,24 +17,31 @@ app.secret_key = "Onyxkillerwolf"
 # key_x = b'BCS_ihcYsg3K0brRD2l_cbrDB35G8kw0EO_4wHZuXoQ='
 # fernet = Fernet(key_x)
 
-user_namex = ""
 
-
+cdate = str(dt.datetime.now())[:4]
+cdate = int(cdate)
 
 @app.route('/')
 @app.route('/',methods = ['POST','GET'])
 def login():
+   
     conn = sqlite3.connect('main.db')
     c = conn.cursor()
     c.execute("SELECT * FROM user_auth ")
     data_x = c.fetchall()
     print(data_x)
+    pax = []
+    for _ in data_x:
+        print(_[1]+_[2])
+        pax.append(_[1]+_[2])
+    print(pax)
     if request.method == 'POST':
         user_name = request.form['name']
         user_password = request.form['password']
+
         
-        if user_name == 'admin' and user_password == '3232':
-            user_name = user_namex
+        if user_name+user_password in pax:
+            
 
             session['user_password'] = user_password
             
@@ -50,9 +57,11 @@ def login():
 @app.route('/analytic',methods = ['POST','GET'])
 def analytic():
     day = str(dt.datetime.now())[0:11]
-    fday = str(dt.datetime.now())[0:7]
     conx = sqlite3.connect('main.db')
     c = conx.cursor() 
+    c.execute("SELECT * FROM Item_conf")
+           
+    Ic = c.fetchall()
     if "user_password" in session:
         if request.method == 'POST':
             
@@ -65,14 +74,14 @@ def analytic():
             if not remain_botx == "":
                 c.execute("INSERT INTO empty_box VALUES(?,?,?,?)",info)
                 conx.commit()
-                conx.close()
+                
             else:
                 print("wrong")
                 warn = "Please insert Again"
-                return render_template("analytic.html",warn=warn)
+                return render_template("analytic.html",warn=warn,Ic=Ic,cdate=cdate)
 
 
-        return render_template("analytic.html")
+        return render_template("analytic.html",Ic=Ic,cdate=cdate)
     else:
         return redirect(url_for('login'))
 
@@ -84,9 +93,13 @@ def analytic():
 @app.route('/index',methods = ['POST','GET'])
 def index():
     day = str(dt.datetime.now())[0:11]
-    fday = str(dt.datetime.now())[0:7]
     conx = sqlite3.connect('main.db')
     c = conx.cursor() 
+   
+        
+    c.execute("SELECT * FROM Item_conf")
+           
+    Ic = c.fetchall()
     if "user_password" in session:
         if request.method == 'POST':
            
@@ -98,14 +111,14 @@ def index():
                 info = [type_botx,type_boxx,amount_botx,day]
                 c.execute("INSERT INTO e_income VALUES(?,?,?,?)",info)
                 conx.commit()
-                conx.close()
+                
             else:
                 print("wrong")
                 warn = "Please insert Again"
-                return render_template("index.html",warn=warn)
+                return render_template("index.html",warn=warn,Ic=Ic,cdate=cdate)
                       
         
-        return render_template("index.html")
+        return render_template("index.html",Ic=Ic,cdate=cdate)
     else:
         return render_template("login.html")
 
@@ -193,7 +206,7 @@ def accept():
         
         c.execute("INSERT INTO t_income VALUES(?,?,?,?)",infox)
         con.commit()
-        con.close()
+    
        
         
 
@@ -242,12 +255,40 @@ def about():
          item = c.fetchall() 
         
 
-         return render_template("version.html",item=item)
+         return render_template("version.html",item=item,cdate=cdate)
     
     else:
         return render_template("login.html")
 
 
+
+@app.route('/eCost',methods = ['POST','GET'])
+def eCost():
+    conn = sqlite3.connect('main.db')
+    c = conn.cursor()
+    day = str(dt.datetime.now())[0:11]
+    if request.method == 'POST':
+             cost_reason  = request.form['cost_reason']
+             cost_birr = request.form['cost_birr']
+             cost_comment = request.form['cost_comment']
+             info = [cost_reason,cost_birr,cost_comment,day]
+             if cost_birr == "" and cost_reason == ""  != None:
+                print("Nomething going wrong")
+             else:
+                 c.execute("INSERT INTO e_cost VALUES(?,?,?,?)",info)
+                 conn.commit()
+           
+        
+
+             return render_template("manual.html",cdate=cdate)
+    
+    else:
+        return render_template("login.html")
+
+
+
+
+#-------------------------------------- - Deletion code - --------------------------------------#
 
 @app.route("/delist/<string:id>", methods = ["POST","GET"])
 def delist(id):
@@ -271,6 +312,10 @@ def Itemdel(id):
             conn = sqlite3.connect('main.db')
             c = conn.cursor()
             c.execute("DELETE FROM Item_conf WHERE Name = ? ",[id])
+            # fc =  c.fetchall()
+          
+            c.execute(f"ALTER TABLE stock DROP '" + id +"' ")
+            # c.execute("DELETE FROM Item_conf WHERE Name = ? ",[id])
             conn.commit()
             return redirect(url_for('setting'))
         return render_template("setting.html")
@@ -278,7 +323,21 @@ def Itemdel(id):
         return render_template("login.html")        
  
 
+@app.route("/Userdel/<string:id>", methods = ["POST","GET"])
+def Userdel(id):
+    if "user_password" in session:
+        if request.method == "GET":
+            conn = sqlite3.connect('main.db')
+            c = conn.cursor()
+            c.execute("DELETE FROM user_auth WHERE Username = ? ",[id])
+            conn.commit()
+            return redirect(url_for('setting'))
+        return render_template("setting.html")
+    else:
+        return render_template("login.html")        
+ 
 
+#-------------------------------------- - Deletion code - --------------------------------------#
 
 
 @app.route("/setting", methods = ["POST","GET"])
@@ -299,18 +358,15 @@ def setting():
 
 
 
-        try:
-            for i in range(len(temp_store)):
-                c.execute(f"ALTER TABLE stock ADD '" + temp_store[i] +"' INTEGER")
-                conn.commit()
-        except:  
-            pass
 
-
+        con = sqlite3.connect('main.db')
+        cx = con.cursor()
+        cx.execute("SELECT * FROM user_auth ")
+        auth = cx.fetchall()
 
             
             
-        return render_template("setting.html",dat=dat,user_namex=user_namex)
+        return render_template("setting.html",dat=dat,cdate=cdate,auth=auth)
     else:
         return render_template("login.html")        
 
@@ -322,6 +378,7 @@ def item_conf():
     if "user_password" in session:
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
+        item_name = ""
         if request.method == "POST":
             item_name = request.form['item_name']
             item_price = request.form['item_price']
@@ -339,15 +396,13 @@ def item_conf():
 
 
             try:
-                cx.execute(f"ALTER TABLE stock ADD '" + info[0] +"' INTEGER")
+                cx.execute(f"ALTER TABLE stock ADD '" + item_name +"' INTEGER DEFAULT 0 ")
                 con .commit()
 
             except:  
                 pass
 
-            
-    
-            
+                 
             
             
         return redirect(url_for('setting'))
@@ -380,14 +435,17 @@ def auth_app():
              print(info)
             #  print(info2)
             #  print(info)
-            
-             c.execute("INSERT INTO user_auth VALUES(?,?,?)",info)
-             conn.commit()
+             if new_passx == "" and  new_passx == "" != None:
+                 print("Wrong way")
+                
+             else:
+                c.execute("INSERT INTO user_auth VALUES(?,?,?)",info)
+                conn.commit()
 
              c.execute("SELECT * FROM user_auth")
            
              fc = c.fetchall()
-             prin(fc)
+             print(fc)
             #  print( " ".join(fc)) 
             # #  print(fc)
             #  for fcx in fc:
@@ -473,144 +531,117 @@ def outcome():
 
 @app.route('/')
 
-@app.route('/income',methods = ['POST','GET'])
-def income():
+@app.route('/Store',methods = ['POST','GET'])
+def Store():
     day = str(dt.datetime.now())[0:11]
     fday = str(dt.datetime.now())[0:7]
     if "user_password" in session:
-        conn = sqlite3.connect('income.db')
+        conn = sqlite3.connect('main.db')
         c = conn.cursor()
-        if request.method == 'POST':
-            
-            de_birr = request.form['ebirr']
-            info = [de_birr,day]
-            c.execute("INSERT INTO income VALUES(?,?)",info)
-        conn.commit()
-        conn.close()
         
-            
-        return redirect(url_for('index'))
+        c.execute("SELECT * FROM Item_conf")
+           
+        Ic = c.fetchall()
 
+
+        con = sqlite3.connect('main.db')
+        d = con.cursor()
+        d.execute("SELECT * FROM stock")
+        lis = d.fetchall()
+        Nc = list(map(lambda x: x[0],d.description))
+       
+        l2 = []
+        for _ in range(len(lis[0])):
+            l2.append(lis[0][_])
+
+      
+
+
+
+        res = dict(zip(Nc,l2))
+        
+        for x, y in res.items():
+            print(x, y)
+     
+        print(res)
+
+       
+        return render_template("Store.html",Ic=Ic,res=res,cdate=cdate)  
+       
     else:
-        return render_template("login.html")    
+        return render_template("login.html")  
 
 
 
 
-@app.route('/tax',methods = ['POST','GET'])
-def tax():
-    day = str(dt.datetime.now())[0:11]
-    fday = str(dt.datetime.now())[0:7]
+
+
+
+
+
+
+
+
+
+
+
+
+# ------------------------ StockADD ----------------------------- # 
+
+
+
+
+
+
+@app.route('/')
+
+@app.route('/StockAdd',methods = ['POST','GET'])
+def StockAdd():
+    #------- Databse connection and session ------------------- #
     if "user_password" in session:
-        conn = sqlite3.connect('tax.db')
+        conn = sqlite3.connect('main.db')
         c = conn.cursor()
+           
+      
         if request.method == 'POST':
             
-            d_taxbirr = request.form['taxbirr']
-            info = [d_taxbirr,day] 
-            c.execute("INSERT INTO tax VALUES(?,?)",info)
-        conn.commit()
-        conn.close()
+            type_item = request.form['type_item']
+            item_Amount = request.form['item_Amount']
+       
+            #------------ Fetching from stock column ----------------- #
+            c.execute(f"SELECT {type_item} FROM stock")
+            
+            dat = c.fetchall()
+            k = 0
+            for _ in range(len(dat)):
+                k = dat[0]
+            print(k[0])
+            item_x = int(item_Amount) + int(k[0])
+            c.execute("UPDATE Stock SET '" + type_item + "' = '" + str(item_x) + "' WHERE ID = 1 ")
+            conn.commit()
+                 
+        return redirect(url_for('Store'))
 
-        return redirect(url_for('index'))
     else:
         return render_template("login.html")    
 
 
 
 
-@app.route('/version')
-def version():
-    
-    if "user_password" in session:
-        return render_template("versionapp.html")
-    else:
-        return render_template("login.html")
 
 
-
-
-@app.route('/reserved', methods = ["POST","GET"])
-def reserved():
-    day = str(dt.datetime.now())[0:11]
-    fday = str(dt.datetime.now())[0:7]
-    if "user_password" in session:
-        if request.method == 'POST':
-            cost_reasonx = request.form['cost_reason']
-            cost_birrx = request.form['cost_birr']
-            cost_commentx= request.form['cost_comment'] 
-            olad = [day,cost_reasonx,cost_birrx,cost_commentx]
-            print(olad)
-        return render_template("manual.html")
-    else:
-        return render_template("login.html")
-
-
-
-
-
-
-
-
-
-
-@app.route("/delx/<int:id>", methods = ["POST","GET"])
-def delx(id):
-    if "user_password" in session:
-        if request.method == "GET":
-            conn = sqlite3.connect('reserve.db')
-            c = conn.cursor()
-            c.execute("DELETE FROM reserve WHERE Id = ? ",[id])
-            conn.commit()
-            return redirect(url_for('reserved'))
-        return render_template("reserve.html")
-    else:
-        return render_template("login.html")        
-    
 
 
 
 @app.route('/manual')
 def manual():
     if "user_password" in session:
-        return render_template("manual.html")
+        return render_template("manual.html",cdate=cdate)
     
     else:
         return render_template("login.html")
-
-
-
-@app.route('/sumpage')
-def sumpage():
-    if "user_password" in session:
-        conn = sqlite3.connect('summary.db')
-        c = conn.cursor()
-        c.execute("SELECT * FROM summary ")
-        countt = c.fetchall()
-        res = []
-        for num in countt:
-            res.append(num)
-        return render_template("summary.html",res=res)
     
-    else:
-        return render_template("login.html")
 
-
-@app.route('/costpage')
-def costpage():
-    if "user_password" in session:
-        conn = sqlite3.connect('outcome.db')
-        c = conn.cursor()
-        c.execute("SELECT * FROM outcome ")
-        countt = c.fetchall()
-        res = []
-        for num in countt:
-            res.append(num)
-       
-        return render_template("cost.html",res=res)
-    
-    else:
-        return render_template("login.html")
 
 
 
